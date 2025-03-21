@@ -10,6 +10,7 @@ import { ResetPasswordEmailTemplate } from '@/emails/reset-password.template'
 import { OTPVerificationEmailTemplate } from '@/emails/otp-verification.template'
 
 export const auth = betterAuth({
+  trustedOrigins: [process.env.BASE_URL as string],
   database: prismaAdapter(prisma, {
     provider: 'postgresql'
   }),
