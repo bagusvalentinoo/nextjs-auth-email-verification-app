@@ -29,7 +29,7 @@ export const auth = betterAuth({
         })
       })
     },
-    resetPasswordTokenExpiresIn: 60 // 1 minute
+    resetPasswordTokenExpiresIn: 300 // 5 minutes
   },
   plugins: [
     emailOTP({
@@ -51,7 +51,7 @@ export const auth = betterAuth({
       },
       sendVerificationOnSignUp: true,
       otpLength: 6,
-      expiresIn: 600 // 10 minutes
+      expiresIn: 300 // 5 minutes
     }),
     twoFactor({
       otpOptions: {
@@ -66,7 +66,8 @@ export const auth = betterAuth({
               type: 'sign-in'
             })
           })
-        }
+        },
+        period: 1 // 1 minute
       }
     }),
     nextCookies()
