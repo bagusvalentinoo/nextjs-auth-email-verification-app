@@ -17,7 +17,6 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { ModeToggle } from '@/components/mode-toggle'
 import { authClient } from '@/lib/auth-client'
-// TODO: Refactor code to be more clean and efficient
 
 export function TopNav() {
   const pathname = usePathname()

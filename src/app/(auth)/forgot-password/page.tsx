@@ -14,8 +14,8 @@ const ForgotPasswordPage = () => {
       <AuthIllustration
         src="/images/auth/illustration_forgot_password.svg"
         alt="Forgot Password Illustration"
-        width={500}
-        height={500}
+        containerWidth="50%"
+        containerHeight="50%"
       />
       <AuthCardWrapper
         headerLabel="Forgot Password"

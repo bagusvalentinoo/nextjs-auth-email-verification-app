@@ -27,8 +27,6 @@ const navigation = [
   }
 ]
 
-// TODO: Refactor code to be more clean and efficient
-
 export function Sidebar() {
   const pathname = usePathname()
   const [isCollapsed, setIsCollapsed] = useState(false)

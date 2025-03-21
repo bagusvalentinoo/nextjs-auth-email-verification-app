@@ -12,8 +12,8 @@ const RegisterPage = () => {
       <AuthIllustration
         src="/images/auth/illustration_register.svg"
         alt="Register Illustration"
-        width={500}
-        height={500}
+        containerWidth="50%"
+        containerHeight="50%"
       />
       <AuthCardWrapper
         headerLabel="Create Account"

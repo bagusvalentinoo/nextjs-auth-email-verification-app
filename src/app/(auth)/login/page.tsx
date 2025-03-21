@@ -13,8 +13,8 @@ const LoginPage = () => {
       <AuthIllustration
         src="/images/auth/illustration_login.svg"
         alt="Login Illustration"
-        width={400}
-        height={400}
+        containerWidth="50%"
+        containerHeight="50%"
       />
       <AuthCardWrapper
         headerLabel="Sign In to your account"
