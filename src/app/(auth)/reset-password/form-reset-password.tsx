@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { RefreshCcw } from 'lucide-react'
@@ -27,16 +27,7 @@ export const FormResetPassword = () => {
   const [isLoading, setIsLoading] = useState(false)
   const searchParams = useSearchParams()
   const router = useRouter()
-  const token = searchParams.get('token') // Mendapatkan token dari URL
-
-  useEffect(() => {
-    if (!token) {
-      toast.error('Invalid or missing reset token', {
-        duration: 5000
-      })
-      router.push('/login')
-    }
-  }, [token, router])
+  const token = searchParams.get('token')
 
   const form = useForm<ResetPasswordValues>({
     resolver: zodResolver(resetPasswordSchema),

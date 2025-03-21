@@ -29,3 +29,17 @@ export const checkUserEmailHasVerified = async (email: string) => {
 
   return true
 }
+
+export const validateResetPasswordToken = async (token: string) => {
+  const identifier = `reset-password:${token}`
+
+  const verification = await prisma.verification.findFirst({
+    where: { identifier },
+    select: { expiresAt: true }
+  })
+
+  if (!verification) return false
+  if (verification.expiresAt < new Date()) return false
+
+  return true
+}

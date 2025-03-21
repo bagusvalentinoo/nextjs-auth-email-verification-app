@@ -38,17 +38,25 @@ export const FormForgotPassword = () => {
 
   const onForgotPassword = async (values: ForgotPasswordValues) => {
     const { email } = values
+
+    setIsLoading(true)
     const user = await findUserByEmail(email)
 
     if (!user) {
-      toast.error('Oops! Email not found')
+      form.setError('email', {
+        message: 'Oops! Email not found',
+        type: 'manual'
+      })
+      setIsLoading(false)
       return
     }
+
+    setIsLoading(false)
 
     await authClient.forgetPassword(
       {
         email,
-        redirectTo: '/reset-password' // Redirect link untuk reset password
+        redirectTo: '/reset-password'
       },
       {
         onRequest: () => {
