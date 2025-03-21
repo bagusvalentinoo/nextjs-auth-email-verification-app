@@ -60,7 +60,13 @@ export const FormRegister = () => {
         onError: ctx => {
           setIsLoading(false)
           toast.dismiss()
-          toast.error(ctx.error.message)
+
+          if (ctx.error.code === 'USER_ALREADY_EXISTS') {
+            form.setError('email', {
+              message: ctx.error.message,
+              type: 'manual'
+            })
+          } else toast.error(ctx.error.message)
         }
       }
     )
