@@ -8,6 +8,8 @@
 
 ## 🌐 Demo
 
+You can see the demo of the app [Next Auth Email Verification App](https://next-auth-email-verification-app.vercel.app/).
+
 ---
 
 ## ✨ Key Features
