@@ -8,7 +8,6 @@ import toast from 'react-hot-toast'
 import { RefreshCcw } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
 import {
   Form,
   FormControl,
@@ -31,19 +30,17 @@ export const FormLogin = () => {
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: '',
-      password: '',
-      rememberMe: false
+      password: ''
     }
   })
 
   const onLogin = async (values: LoginValues) => {
-    const { email, password, rememberMe } = values
+    const { email, password } = values
 
     await authClient.signIn.email(
       {
         email,
-        password,
-        rememberMe
+        password
       },
       {
         onRequest: () => {
@@ -54,10 +51,27 @@ export const FormLogin = () => {
           form.reset()
           toast.dismiss()
           await authClient.twoFactor.enable({ password })
-          await authClient.twoFactor.sendOtp()
-          toast.success('OTP sent successfully! Please check your email.')
-          router.push(`/verify-otp?email=${email}&type=sign-in`)
-          setIsLoading(false)
+          await authClient.twoFactor.sendOtp(
+            {},
+            {
+              onRequest: () => {
+                setIsLoading(true)
+              },
+              onSuccess: () => {
+                toast.dismiss()
+                toast.success(
+                  'Please check your email for the verification code'
+                )
+                router.push(`/verify-otp?email=${email}&type=sign-in`)
+                setIsLoading(false)
+              },
+              onError: ctx => {
+                setIsLoading(false)
+                toast.dismiss()
+                toast.error(ctx.error.message)
+              }
+            }
+          )
         },
         onError: async ctx => {
           setIsLoading(false)
@@ -95,7 +109,16 @@ export const FormLogin = () => {
 
             router.push(`/verify-otp?email=${email}&type=email-verification`)
           } else {
-            toast.error(ctx.error.message)
+            if (ctx.error.code === 'INVALID_EMAIL_OR_PASSWORD') {
+              form.setError('email', {
+                message: '',
+                type: 'manual'
+              })
+              form.setError('password', {
+                message: ctx.error.message,
+                type: 'manual'
+              })
+            } else toast.error(ctx.error.message)
           }
         }
       }
@@ -149,26 +172,6 @@ export const FormLogin = () => {
                     />
                   </FormControl>
                   <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          <div className="w-full flex items-center justify-end my-3">
-            <FormField
-              control={form.control}
-              name="rememberMe"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-1 space-y-0">
-                  <FormControl>
-                    <Checkbox
-                      disabled={isLoading}
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                  <div className="space-y-1 leading-none">
-                    <FormLabel>Remember me</FormLabel>
-                  </div>
                 </FormItem>
               )}
             />
