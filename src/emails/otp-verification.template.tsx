@@ -134,7 +134,9 @@ export const OTPVerificationEmailTemplate = ({
                 </tr>
               </table>
               
-              <p>This code will expire in <span class="highlight">10 minutes</span>.</p>
+              <p>This code will expire in <span class="highlight">
+                ${type === 'sign-in' ? '1 minute' : '5 minutes'}
+              </span>.</p>
               
               <p>If you didn't request this code, you can safely ignore this email. Someone might have entered your email address by mistake.</p>
               

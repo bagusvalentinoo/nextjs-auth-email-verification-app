@@ -108,7 +108,7 @@ export const ResetPasswordEmailTemplate = ({
                 <a href="${url}" class="button">Reset Password</a>
               </p>
               
-              <p>This link will expire in 1 minute.</p>
+              <p>This link will expire in 5 minutes.</p>
               
               <p>Best regards,<br>The Support Team</p>
             </td>
