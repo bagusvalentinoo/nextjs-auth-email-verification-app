@@ -10,12 +10,12 @@ export const metadata: Metadata = {
   title: 'Verify OTP'
 }
 
-const LoginPage = async ({
+const VerifyOTPPage = async ({
   searchParams
 }: {
-  searchParams: { email?: string; type?: string }
+  searchParams: Promise<{ email?: string; type?: string }>
 }) => {
-  const { email, type } = searchParams
+  const { email, type } = await searchParams
 
   if (!email || !type) return redirect('/login')
 
@@ -51,4 +51,4 @@ const LoginPage = async ({
   )
 }
 
-export default LoginPage
+export default VerifyOTPPage

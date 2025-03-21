@@ -14,11 +14,11 @@ const ResetPasswordPage = async ({
 }: {
   searchParams: Promise<{ token?: string }>
 }) => {
-  const params = await searchParams
+  const { token } = await searchParams
 
-  if (!params.token) return redirect('/login')
+  if (!token) return redirect('/login')
 
-  const isTokenValid = await validateResetPasswordToken(params.token)
+  const isTokenValid = await validateResetPasswordToken(token)
 
   if (!isTokenValid) return redirect('/login')
 
